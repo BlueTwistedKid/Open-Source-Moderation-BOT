@@ -1,6 +1,7 @@
 import nextcord
 from nextcord.ext import commands, application_checks
 from nextcord.ext.commands import commands
+import youtube_dl
 import json
 import os
 
@@ -41,5 +42,10 @@ async def kick(ctx, user : nextcord.Member, reason : str):
 async def clear(ctx, amount : int):
     await ctx.channel.purge(limit=amount)
     await ctx.channel.send(f"Cleared {amount} Successfully <:yes:992060148573024307>")
+
+@bot.slash_command(name="warn", description="warns a user")
+async def warn(ctx, user : nextcord.Member, reason : str):
+    await user.warn(reason=reason)
+    await ctx.channel.send(f"Warned {user.mention}, Successfully")
 
 bot.run(token)
